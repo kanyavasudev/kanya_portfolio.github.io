@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kanya V — Content Strategist & Creative Strategist</title>
+<meta name="description" content="Kanya V — Content Strategist & Creative Strategist. Where strategic thinking meets creative execution."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
+:root {
+  /* Palette — Plum · Gold · Blush · Sage */
+  --plum:      #3D1A5C;
+  --plum-deep: #280F40;
+  --plum-mid:  #5C2E8A;
+  --plum-lt:   rgba(61,26,92,0.07);
+  --gold:      #C8922A;
+  --gold-lt:   rgba(200,146,42,0.12);
+  --gold-pale: #F5E8C8;
+  --blush:     #F2E8F5;
+  --sage:      #2D5A4E;
+  --sage-lt:   rgba(45,90,78,0.08);
+  --cream:     #FDFAF6;
+  --warm:      #F7F2EC;
+  --ink:       #1A1118;
+  --ink-2:     #2E2233;
+  --muted:     #6B5F78;
+  --rule:      rgba(61,26,92,0.12);
+  --rule-sm:   rgba(61,26,92,0.06);
+  --nav-h:     64px;
+}
+
+/* ═══════════════════════════════════════
+   RESET
+═══════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;}
+a{color:inherit;}
+
+/* ═══════════════════════════════════════
+   NOISE TEXTURE
+═══════════════════════════════════════ */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9997;opacity:.5;
+}
+
+/* ═══════════════════════════════════════
+   LOADER
+═══════════════════════════════════════ */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--plum-deep);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#loader.out{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-k{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(72px,14vw,160px);
+  font-weight:300;font-style:italic;
+  color:var(--cream);
+  letter-spacing:-4px;line-height:1;
+  overflow:hidden;
+}
+.ld-k span{
+  display:inline-block;
+  transform:translateY(110%);
+  animation:ldup .9s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.ld-k span:nth-child(2){animation-delay:.07s}
+.ld-k span:nth-child(3){animation-delay:.14s}
+.ld-k span:nth-child(4){animation-delay:.21s}
+.ld-k span:nth-child(5){animation-delay:.28s}
+.ld-sub{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-top:20px;
+  opacity:0;animation:ldfade .5s ease .8s forwards;
+}
+.ld-bar{
+  position:absolute;bottom:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--plum-mid));
+  animation:ldbar 1.8s cubic-bezier(0.22,1,0.36,1) .2s forwards;
+}
+@keyframes ldup{to{transform:translateY(0)}}
+@keyframes ldfade{to{opacity:1}}
+@keyframes ldbar{from{width:0}to{width:100%}}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+#nav{
+  position:fixed;top:0;width:100%;height:var(--nav-h);z-index:100;
+  background:rgba(253,250,246,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--rule);
+  transition:box-shadow .3s;
+}
+#nav.scrolled{box-shadow:0 4px 32px rgba(61,26,92,0.08);}
+.nav-w{
+  max-width:1320px;margin:auto;height:100%;
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:600;font-style:italic;
+  color:var(--plum);text-decoration:none;letter-spacing:.01em;
+}
+.nav-logo span{font-style:normal;color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:36px;}
+.nav-links a{
+  text-decoration:none;font-size:12px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);transition:color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--plum);}
+.nav-cta{
+  text-decoration:none;padding:10px 22px;
+  background:var(--plum);color:var(--cream);
+  font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  border-radius:2px;transition:.25s;border:1.5px solid var(--plum);
+}
+.nav-cta:hover{background:transparent;color:var(--plum);}
+#ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;}
+#ham span{display:block;width:22px;height:1.5px;background:var(--plum);}
+#mob{display:none;flex-direction:column;background:var(--cream);border-top:1px solid var(--rule);padding:0 24px 20px;}
+#mob.open{display:flex;}
+#mob a{text-decoration:none;font-size:14px;font-weight:500;color:var(--ink);padding:13px 0;border-bottom:1px solid var(--rule-sm);}
+#mob a:last-child{border-bottom:none;}
+
+/* ═══════════════════════════════════════
+   SHARED
+═══════════════════════════════════════ */
+.section{padding:120px 0;}
+.wrap{max-width:1320px;margin:0 auto;padding:0 48px;}
+.wrap-narrow{max-width:900px;margin:0 auto;padding:0 48px;}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:14px;margin-bottom:16px;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0;}
+.section-h{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:700;font-size:clamp(40px,5.5vw,68px);
+  line-height:1.0;margin-bottom:64px;color:var(--ink);
+}
+.section-h em{font-style:italic;color:var(--plum);}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  padding-top:var(--nav-h);
+  display:grid;grid-template-rows:auto 1fr auto;
+  background:var(--cream);
+  position:relative;overflow:hidden;
+}
+/* decorative circle */
+#hero::after{
+  content:'';position:absolute;
+  right:-180px;top:50%;transform:translateY(-50%);
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle, rgba(200,146,42,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-ticker{
+  background:var(--plum);height:36px;overflow:hidden;
+  display:flex;align-items:center;flex-shrink:0;
+}
+.t-track{display:flex;white-space:nowrap;animation:tick 28s linear infinite;}
+.t-track:hover{animation-play-state:paused;}
+.t-item{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(253,250,246,0.8);padding:0 40px;
+  display:flex;align-items:center;gap:20px;
+}
+.t-item::after{content:'✦';opacity:.45;font-size:8px;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.hero-main{
+  flex:1;max-width:1320px;margin:0 auto;
+  padding:80px 48px 64px;width:100%;
+  display:grid;grid-template-columns:1fr 420px;
+  gap:80px;align-items:center;
+}
+.h-sup{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--plum);display:flex;align-items:center;gap:14px;
+  margin-bottom:32px;
+}
+.h-sup::before{content:'';width:32px;height:1px;background:var(--plum);}
+.h-name{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:700;
+  font-size:clamp(72px,10vw,126px);
+  line-height:.86;letter-spacing:-3px;
+  color:var(--ink);margin-bottom:16px;
+}
+.h-name em{
+  display:block;font-style:italic;
+  color:var(--plum);letter-spacing:-2px;
+}
+.h-role{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,3vw,34px);
+  font-weight:400;font-style:italic;
+  color:var(--gold);margin-bottom:32px;line-height:1.3;
+}
+.h-desc{
+  font-size:17px;line-height:1.82;color:var(--muted);
+  max-width:520px;margin-bottom:44px;
+}
+.h-desc strong{color:var(--ink);font-weight:600;}
+.h-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
+.btn-plum{
+  padding:14px 28px;background:var(--plum);color:var(--cream);
+  text-decoration:none;font-size:12.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  border:1.5px solid var(--plum);border-radius:2px;transition:.25s;
+}
+.btn-plum:hover{background:var(--plum-deep);border-color:var(--plum-deep);transform:translateY(-2px);box-shadow:0 8px 24px rgba(61,26,92,0.25);}
+.btn-gold{
+  padding:14px 28px;background:transparent;color:var(--plum);
+  text-decoration:none;font-size:12.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  border:1.5px solid var(--plum);border-radius:2px;transition:.25s;
+}
+.btn-gold:hover{background:var(--plum-lt);transform:translateY(-2px);}
+.btn-ghost{
+  padding:14px 28px;background:transparent;color:var(--muted);
+  text-decoration:none;font-size:12.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  border:1.5px solid var(--rule);border-radius:2px;transition:.25s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.h-socials{display:flex;gap:24px;flex-wrap:wrap;}
+.h-socials a{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  border-bottom:1px solid var(--rule);padding-bottom:2px;transition:.2s;
+}
+.h-socials a:hover{color:var(--plum);border-color:var(--plum);}
+
+/* hero photo column */
+.h-photo-wrap{position:relative;}
+.h-photo-frame{
+  width:100%;aspect-ratio:3/4;overflow:hidden;
+  background:var(--blush);position:relative;
+  border-radius:4px 120px 4px 4px; /* one rounded corner for personality */
+}
+.h-photo-frame img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+/* gold border accent */
+.h-photo-frame::before{
+  content:'';position:absolute;
+  top:-12px;right:-12px;
+  width:100%;height:100%;
+  border:2px solid var(--gold);
+  border-radius:4px 120px 4px 4px;
+  z-index:-1;
+}
+.h-badge{
+  position:absolute;bottom:-20px;left:-24px;
+  background:var(--plum);color:var(--cream);
+  padding:22px 28px;border-radius:4px;
+  box-shadow:0 16px 48px rgba(61,26,92,0.3);
+}
+.h-badge-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:52px;font-weight:700;line-height:1;color:var(--gold-pale);
+}
+.h-badge-l{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(253,250,246,0.6);margin-top:4px;
+}
+.h-chip{
+  position:absolute;top:20px;right:-18px;
+  background:var(--gold);color:var(--ink);
+  padding:10px 14px;border-radius:2px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;
+  letter-spacing:.14em;text-transform:uppercase;
+  writing-mode:vertical-rl;line-height:1.5;
+  font-weight:500;
+}
+
+/* hero stats bar */
+.h-stats{
+  border-top:1px solid var(--rule);
+  max-width:1320px;margin:0 auto;
+  padding:0 48px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.h-stat{
+  padding:28px 0;text-align:center;
+  border-right:1px solid var(--rule);
+}
+.h-stat:last-child{border-right:none;}
+.h-stat-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:48px;font-weight:700;line-height:1;color:var(--plum);
+}
+.h-stat-n span{color:var(--gold);}
+.h-stat-l{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
+  margin-top:6px;
+}
+
+/* ═══════════════════════════════════════
+   HOW I THINK — dark section with large pull text
+═══════════════════════════════════════ */
+#think{background:var(--plum-deep);padding:120px 0;}
+#think .eyebrow{color:var(--gold);}
+#think .eyebrow::before{background:var(--gold);}
+.think-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:0;}
+.think-half{
+  padding:64px 56px;position:relative;overflow:hidden;
+  transition:background .35s;
+}
+.think-half:first-child{background:rgba(255,255,255,.04);border-right:1px solid rgba(255,255,255,.06);}
+.think-half:last-child{background:rgba(200,146,42,.06);}
+.think-half:hover{background:rgba(255,255,255,.07);}
+.think-num{
+  position:absolute;top:24px;right:32px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:140px;font-weight:700;
+  color:rgba(255,255,255,.03);
+  line-height:1;user-select:none;pointer-events:none;
+}
+.think-icon{font-size:40px;margin-bottom:24px;display:block;}
+.think-half h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:34px;font-weight:600;font-style:italic;
+  color:var(--cream);margin-bottom:18px;line-height:1.15;
+}
+.think-half p{
+  font-size:15.5px;line-height:1.85;
+  color:rgba(253,250,246,0.65);margin-bottom:28px;
+}
+.think-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tt{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.1em;padding:6px 14px;border-radius:2px;
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(253,250,246,.65);transition:.2s;
+}
+.tt:hover{border-color:var(--gold);color:var(--gold);}
+/* big quote below */
+.think-quote{
+  background:linear-gradient(135deg,rgba(200,146,42,.12),rgba(61,26,92,.3));
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:60px 80px;text-align:center;
+}
+.think-quote p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(24px,3vw,40px);
+  font-style:italic;font-weight:400;
+  color:rgba(253,250,246,.9);line-height:1.5;
+  max-width:800px;margin:0 auto;
+}
+.think-quote cite{
+  display:block;margin-top:20px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);font-style:normal;
+}
+
+/* ═══════════════════════════════════════
+   STORY — alternating editorial layout
+═══════════════════════════════════════ */
+#story{background:var(--warm);}
+.story-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:100px;align-items:start;}
+.s-left{}
+.s-big{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,3.5vw,46px);
+  font-weight:600;line-height:1.25;
+  color:var(--ink);margin-bottom:40px;
+}
+.s-big em{font-style:italic;color:var(--plum);}
+.s-accent-bar{
+  width:48px;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--plum-mid));
+  margin-bottom:36px;
+}
+.s-body p{
+  font-size:16px;line-height:1.9;color:var(--muted);
+  margin-bottom:20px;
+}
+.s-body p strong{color:var(--ink);font-weight:600;}
+/* timeline */
+.tl{list-style:none;padding-left:0;}
+.tl-item{
+  display:grid;grid-template-columns:80px 1fr;
+  gap:20px;padding-bottom:36px;position:relative;
+}
+.tl-item::after{
+  content:'';position:absolute;
+  left:79px;top:8px;bottom:0;
+  width:1px;background:var(--rule);
+}
+.tl-item:last-child::after{display:none;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-yr{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.1em;color:var(--gold);
+  text-transform:uppercase;padding-top:3px;text-align:right;
+  position:relative;
+}
+.tl-yr::after{
+  content:'';position:absolute;
+  right:-24px;top:7px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--plum);border:2px solid var(--warm);
+  box-shadow:0 0 0 3px rgba(61,26,92,.18);
+}
+.tl-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.tl-desc{font-size:13.5px;line-height:1.72;color:var(--muted);}
+
+/* ═══════════════════════════════════════
+   PROJECTS — uniform 3-col grid
+═══════════════════════════════════════ */
+#projects{background:var(--cream);}
+.proj-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:end;margin-bottom:56px;
+}
+.proj-intro p{font-size:16px;line-height:1.85;color:var(--muted);}
+
+/* unified grid — 3 columns, all cards same structure */
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--rule);
+  border:1px solid var(--rule);
+}
+
+.pc{
+  background:var(--cream);
+  display:flex;flex-direction:column;
+  text-decoration:none;color:inherit;
+  transition:background .25s, transform .25s, box-shadow .25s;
+  position:relative;
+}
+.pc:hover{
+  background:var(--white,#fff);
+  transform:translateY(-5px);
+  box-shadow:0 24px 64px rgba(61,26,92,.12);
+  z-index:2;
+}
+.pc:hover .pc-arr{transform:translate(3px,-3px);}
+
+/* fixed-height image zone — same on every card */
+.pc-img{
+  width:100%;height:200px;
+  object-fit:cover;object-position:center top;
+  flex-shrink:0;display:block;
+}
+.pc-nimg{
+  width:100%;height:200px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;
+}
+.pc-nimg.plum-bg{background:var(--plum-lt);}
+.pc-nimg.gold-bg{background:var(--gold-lt);}
+.pc-nimg.sage-bg{background:var(--sage-lt);}
+
+.pc-body{
+  padding:28px 28px 32px;
+  display:flex;flex-direction:column;flex:1;
+}
+.pc-type{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:11px;
+}
+.pc-type.da{color:var(--plum);}
+.pc-type.cs{color:var(--gold);}
+.pc-type.hy{color:var(--sage);}
+.pc h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:700;line-height:1.2;
+  margin-bottom:9px;color:var(--ink);
+}
+.pc-q{
+  font-size:13px;font-style:italic;
+  color:var(--muted);line-height:1.55;margin-bottom:13px;
+}
+.pc-desc{
+  font-size:13.5px;line-height:1.75;color:var(--muted);
+  flex:1;margin-bottom:18px;
+}
+.pc-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+.pcp{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.07em;padding:4px 10px;
+  border:1px solid var(--rule);
+  background:var(--warm);color:var(--muted);
+  border-radius:2px;
+}
+.pc-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:auto;padding-top:14px;
+  border-top:1px solid var(--rule-sm);
+}
+.pc-lnk{
+  font-size:11.5px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--plum);text-decoration:none;
+}
+.pc-lnk:hover{text-decoration:underline;}
+.pc-arr{font-size:18px;color:var(--plum);transition:transform .3s;}
+
+/* highlight card */
+.pc.hl{background:var(--plum);}
+.pc.hl:hover{background:var(--plum-deep);}
+.pc.hl .pc-type{color:rgba(253,250,246,.6);}
+.pc.hl h3{color:var(--cream);}
+.pc.hl .pc-q{color:rgba(253,250,246,.6);}
+.pc.hl .pc-desc{color:rgba(253,250,246,.75);}
+.pc.hl .pcp{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(253,250,246,.8);}
+.pc.hl .pc-foot{border-color:rgba(255,255,255,.15);}
+.pc.hl .pc-lnk,.pc.hl .pc-arr{color:var(--gold-pale);}
+
+/* ═══════════════════════════════════════
+   EXPERIENCE
+═══════════════════════════════════════ */
+#work{background:var(--warm);}
+.work-layout{display:grid;grid-template-columns:220px 1fr;gap:72px;}
+.w-side{position:sticky;top:84px;align-self:start;}
+.w-side-lbl{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;
+}
+.w-nav-item{
+  padding:13px 0;border-bottom:1px solid var(--rule);
+  font-size:13px;font-weight:500;color:var(--muted);
+  cursor:pointer;transition:color .2s;letter-spacing:.01em;
+}
+.w-nav-item:hover,.w-nav-item.on{color:var(--plum);}
+.w-nav-item.on{font-weight:600;}
+.w-entry{padding:52px 0;border-bottom:1px solid var(--rule);}
+.w-entry:first-child{padding-top:0;}
+.w-entry:last-child{border-bottom:none;}
+.w-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:20px;}
+.w-co{
+  display:inline-block;font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  background:var(--plum-lt);color:var(--plum);
+  padding:5px 12px;margin-bottom:10px;border-radius:2px;
+}
+.w-title{
+  font-family:'Cormorant Garamond',serif;font-size:30px;
+  font-weight:700;color:var(--ink);margin-bottom:5px;line-height:1.1;
+}
+.w-sub{font-size:13.5px;color:var(--muted);font-style:italic;}
+.w-date{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.1em;color:var(--muted);text-transform:uppercase;white-space:nowrap;
+}
+.w-list{list-style:none;}
+.w-list li{
+  font-size:15px;line-height:1.82;color:#3A2E44;
+  padding:11px 0 11px 24px;position:relative;
+  border-bottom:1px solid var(--rule-sm);
+}
+.w-list li:last-child{border-bottom:none;}
+.w-list li::before{content:'→';position:absolute;left:0;color:var(--plum);font-size:13px;top:13px;}
+.w-list li strong{color:var(--ink);font-weight:600;}
+.w-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;}
+.wt{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:.08em;padding:5px 12px;
+  border:1px solid var(--rule);background:var(--cream);
+  color:var(--muted);border-radius:2px;
+}
+
+/* ═══════════════════════════════════════
+   SKILLS — two-panel layout
+═══════════════════════════════════════ */
+#skills{background:var(--cream);}
+.skills-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+}
+.sk{padding:52px;}
+.sk.dark{background:var(--plum-deep);}
+.sk.light{background:var(--warm);}
+.sk-eye{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:20px;
+}
+.sk.dark .sk-eye{color:rgba(253,250,246,.4);}
+.sk.light .sk-eye{color:var(--gold);}
+.sk h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:34px;font-weight:600;font-style:italic;margin-bottom:36px;
+}
+.sk.dark h3{color:var(--cream);}
+.sk.light h3{color:var(--ink);}
+.sk-group{margin-bottom:28px;}
+.sk-gl{
+  font-size:11px;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.sk.dark .sk-gl{color:rgba(253,250,246,.6);}
+.sk.light .sk-gl{color:var(--ink-2);}
+.sk-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.skp{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  padding:7px 14px;border-radius:2px;transition:.2s;
+}
+.sk.dark .skp{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.13);
+  color:rgba(253,250,246,.8);
+}
+.sk.dark .skp:hover{background:rgba(255,255,255,.15);}
+.sk.light .skp{
+  background:#fff;border:1px solid var(--rule);color:var(--ink-2);
+}
+.sk.light .skp:hover{background:var(--plum);color:#fff;border-color:var(--plum);transform:translateY(-1px);}
+/* certs */
+.certs{list-style:none;border-top:1px solid rgba(255,255,255,.08);padding-top:28px;margin-top:28px;}
+.cert{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.cert:last-child{border-bottom:none;}
+.cert-ico{color:var(--gold);font-size:14px;flex-shrink:0;margin-top:2px;}
+.cert-nm{font-size:14px;font-weight:500;color:var(--cream);}
+.cert-dt{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:rgba(253,250,246,.4);letter-spacing:.08em;margin-top:3px;}
+/* soft */
+.soft{list-style:none;margin-top:16px;}
+.soft li{
+  font-size:14.5px;line-height:1.78;color:var(--muted);
+  display:flex;gap:10px;padding:10px 0;
+  border-bottom:1px solid var(--rule-sm);
+}
+.soft li:last-child{border-bottom:none;}
+.soft li::before{content:'→';color:var(--plum);flex-shrink:0;font-weight:600;}
+
+/* ═══════════════════════════════════════
+   WRITING
+═══════════════════════════════════════ */
+#writing{background:var(--blush);}
+.writing-hero{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:end;margin-bottom:56px;
+}
+.writing-hero p{font-size:16.5px;font-style:italic;color:var(--muted);line-height:1.8;}
+.wr-list{border-top:1px solid var(--rule);}
+.wr{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:32px;padding:30px 0;border-bottom:1px solid var(--rule);
+  text-decoration:none;color:inherit;
+  transition:padding-left .25s;
+}
+.wr:hover{padding-left:14px;}
+.wr:hover .wr-arr{color:var(--plum);transform:translate(4px,-4px);}
+.wr-plat{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:7px;
+}
+.wr-t{
+  font-family:'Cormorant Garamond',serif;font-size:26px;
+  font-weight:700;color:var(--ink);line-height:1.2;
+}
+.wr-arr{font-size:22px;color:var(--muted);transition:transform .3s,color .3s;flex-shrink:0;}
+
+/* ═══════════════════════════════════════
+   BEYOND
+═══════════════════════════════════════ */
+#beyond{background:var(--warm);}
+.beyond-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+}
+.bc{background:var(--cream);padding:36px;transition:background .25s;}
+.bc:hover{background:#fff;}
+.bc-icon{font-size:32px;margin-bottom:18px;}
+.bc h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:700;margin-bottom:16px;color:var(--ink);
+}
+.bc-list{list-style:none;}
+.bc-list li{
+  font-size:14px;line-height:1.72;color:var(--muted);
+  padding:7px 0;border-bottom:1px solid var(--rule-sm);
+}
+.bc-list li:last-child{border-bottom:none;}
+
+/* ═══════════════════════════════════════
+   NOW / CTA
+═══════════════════════════════════════ */
+#now{
+  background:linear-gradient(135deg, var(--plum-deep) 0%, var(--plum) 60%, var(--plum-mid) 100%);
+  padding:140px 0;text-align:center;position:relative;overflow:hidden;
+}
+#now::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%, rgba(200,146,42,.15) 0%, transparent 60%);
+  pointer-events:none;
+}
+.now-eye{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;
+  justify-content:center;gap:14px;margin-bottom:28px;
+}
+.now-eye::before{content:'';width:24px;height:1px;background:var(--gold);}
+.now-h{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:clamp(52px,8vw,100px);line-height:.88;
+  letter-spacing:-2px;color:var(--cream);margin-bottom:36px;
+}
+.now-h em{font-style:italic;color:var(--gold-pale);}
+.now-body{
+  font-size:17.5px;line-height:1.85;max-width:640px;
+  margin:0 auto 52px;color:rgba(253,250,246,.65);
+}
+.now-body strong{color:var(--cream);}
+.rchips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:56px;}
+.rc{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;
+  padding:11px 22px;border:1px solid rgba(255,255,255,.18);
+  color:rgba(253,250,246,.75);border-radius:2px;transition:.25s;
+}
+.rc:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,146,42,.08);}
+.now-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+.btn-cream{
+  padding:15px 32px;background:var(--cream);color:var(--plum);
+  text-decoration:none;font-size:12.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  border-radius:2px;transition:.25s;border:1.5px solid var(--cream);
+}
+.btn-cream:hover{background:var(--gold-pale);border-color:var(--gold-pale);transform:translateY(-2px);}
+.btn-outline-cream{
+  padding:15px 32px;border:1.5px solid rgba(255,255,255,.25);
+  color:var(--cream);text-decoration:none;font-size:12.5px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  border-radius:2px;transition:.25s;background:transparent;
+}
+.btn-outline-cream:hover{border-color:var(--gold-pale);color:var(--gold-pale);transform:translateY(-2px);}
+.now-foot{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  letter-spacing:.15em;color:rgba(253,250,246,.25);
+  text-transform:uppercase;margin-top:60px;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{
+  background:var(--cream);border-top:1px solid var(--rule);
+  padding:32px 48px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+footer p{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:1100px){
+  .hero-main{grid-template-columns:1fr;gap:60px;}
+  .h-photo-wrap{max-width:360px;}
+  .think-grid{grid-template-columns:1fr;}
+  .think-half{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);}
+  .story-layout{grid-template-columns:1fr;gap:60px;}
+  .proj-intro{grid-template-columns:1fr;gap:20px;}
+  .proj-grid{grid-template-columns:repeat(2,1fr);}
+  .work-layout{grid-template-columns:1fr;}
+  .w-side{position:static;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
+  .w-nav-item{padding:8px 16px;border-bottom:none;border:1px solid var(--rule);font-size:12px;background:var(--cream);}
+  .w-nav-item.on{background:var(--plum-lt);}
+  .skills-wrap{grid-template-columns:1fr;}
+  .beyond-grid{grid-template-columns:repeat(2,1fr);}
+  .writing-hero{grid-template-columns:1fr;gap:24px;}
+}
+@media(max-width:768px){
+  :root{--nav-h:56px;}
+  .nav-links,.nav-cta{display:none;}
+  #ham{display:flex;}
+  .wrap,.wrap-narrow{padding:0 20px;}
+  .section{padding:80px 0;}
+  .hero-main{padding:56px 20px 48px;}
+  .h-stats{grid-template-columns:repeat(2,1fr);padding:0 20px;}
+  .proj-grid{grid-template-columns:1fr;}
+  .beyond-grid{grid-template-columns:1fr;}
+  .h-chip{display:none;}
+  .h-badge{left:0;bottom:-16px;}
+  .sk{padding:36px 24px;}
+  .think-half{padding:40px 28px;}
+  .think-quote{padding:40px 28px;}
+  footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-k"><span>K</span><span>a</span><span>n</span><span>y</span><span>a</span></div>
+  <div class="ld-sub">Content Strategist · Creative Strategist</div>
+  <div class="ld-bar"></div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-w">
+    <a href="#hero" class="nav-logo">Kanya <span>V.</span></a>
+    <div class="nav-links">
+      <a href="#think">Approach</a>
+      <a href="#story">Story</a>
+      <a href="#projects">Work</a>
+      <a href="#work">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#writing">Writing</a>
+    </div>
+    <a href="mailto:kanyavasu7@gmail.com" class="nav-cta">Contact</a>
+    <button id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div id="mob">
+    <a href="#think">Approach</a>
+    <a href="#story">Story</a>
+    <a href="#projects">Work</a>
+    <a href="#work">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#writing">Writing</a>
+    <a href="mailto:kanyavasu7@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-ticker">
+    <div class="t-track">
+      <span class="t-item">Content Strategist</span>
+      <span class="t-item">Creative Strategist</span>
+      <span class="t-item">Brand Communication</span>
+      <span class="t-item">Content Marketing</span>
+      <span class="t-item">Marketing Analyst</span>
+      <span class="t-item">Growth Strategist</span>
+      <span class="t-item">Content Strategist</span>
+      <span class="t-item">Creative Strategist</span>
+      <span class="t-item">Brand Communication</span>
+      <span class="t-item">Content Marketing</span>
+      <span class="t-item">Marketing Analyst</span>
+      <span class="t-item">Growth Strategist</span>
+    </div>
+  </div>
+
+  <div class="hero-main">
+    <div>
+      <div class="h-sup">Chennai, India · Available Immediately · Open to GCCs & Large Organisations</div>
+      <h1 class="h-name">
+        Hi.<br>
+        <em>I'm Kanya.</em>
+      </h1>
+      <p class="h-role">Content Strategist & Creative Strategist</p>
+      <p class="h-desc">
+        I craft strategies that give brands a voice worth listening to.
+        <strong>2.5 years of building content that grows audiences, earns trust, and drives measurable results</strong> — backed by data analysis and shaped by genuine creative thinking.
+      </p>
+      <div class="h-btns">
+        <a href="#projects" class="btn-plum">View My Work</a>
+        <a href="#work" class="btn-gold">Experience</a>
+        <a href="mailto:kanyavasu7@gmail.com" class="btn-ghost">Say Hello</a>
+      </div>
+      <div class="h-socials">
+        <a href="https://linkedin.com/in/kanya-v" target="_blank">LinkedIn</a>
+        <a href="https://github.com/kanyavasudev" target="_blank">GitHub</a>
+        <a href="https://medium.com/@lemonteathoughts" target="_blank">Medium</a>
+        <a href="mailto:kanyavasu7@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="h-photo-wrap">
+      <div class="h-chip">Available Now</div>
+      <div class="h-photo-frame">
+        <img src="images/kanya.jpg" alt="Kanya V" onerror="this.style.display='none'"/>
+      </div>
+      <div class="h-badge">
+        <div class="h-badge-n">2.5</div>
+        <div class="h-badge-l">Years of<br>Proven Work</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-stats">
+    <div class="h-stat rv"><div class="h-stat-n">40<span>%</span></div><div class="h-stat-l">Organic Traffic Growth</div></div>
+    <div class="h-stat rv d1"><div class="h-stat-n">15<span>×</span></div><div class="h-stat-l">Instagram Audience Growth</div></div>
+    <div class="h-stat rv d2"><div class="h-stat-n">25<span>%</span></div><div class="h-stat-l">Inbound Lead Uplift</div></div>
+    <div class="h-stat rv d3"><div class="h-stat-n">5<span>K+</span></div><div class="h-stat-l">Social Audience Built</div></div>
+  </div>
+</section>
+
+<!-- ═══ HOW I THINK ═══ -->
+<section id="think">
+  <div class="wrap">
+    <div class="eyebrow rv">My Approach</div>
+    <h2 class="section-h rv" style="color:var(--cream);">Strategy without <em>creativity</em> is a plan.<br>Creativity without <em>strategy</em> is noise.</h2>
+  </div>
+  <div class="think-grid rv">
+    <div class="think-half">
+      <div class="think-num">01</div>
+      <span class="think-icon">✍️</span>
+      <h3>The Creative Strategist</h3>
+      <p>I believe every brand has something genuinely worth saying — and the strategist's job is to find it, frame it, and deliver it consistently across every touchpoint. I develop brand voices that feel human, content calendars that serve a purpose, and narratives that build long-term audience trust rather than chasing short-term engagement.</p>
+      <div class="think-tags">
+        <span class="tt">Brand Voice Development</span>
+        <span class="tt">Content Strategy</span>
+        <span class="tt">Narrative Framing</span>
+        <span class="tt">Audience Building</span>
+        <span class="tt">Editorial Direction</span>
+      </div>
+    </div>
+    <div class="think-half">
+      <div class="think-num">02</div>
+      <span class="think-icon">📊</span>
+      <h3>The Analytical Thinker</h3>
+      <p>Creative instinct is the starting point, not the ending point. I analyse content performance data, study behavioural patterns in real datasets, and use those findings to interrogate whether a strategy is actually working — and where it needs to change. My data projects are not separate from my creative work. They are an extension of the same curiosity.</p>
+      <div class="think-tags">
+        <span class="tt">Performance Analysis</span>
+        <span class="tt">Behavioural Research</span>
+        <span class="tt">Pattern Recognition</span>
+        <span class="tt">Strategic Iteration</span>
+        <span class="tt">Data Storytelling</span>
+      </div>
+    </div>
+  </div>
+  <div class="think-quote rv">
+    <p>"The most effective content strategies are not built on instinct or data alone — they are built on the discipline to let each one challenge the other."</p>
+    <cite>— How I approach every brief</cite>
+  </div>
+</section>
+
+<!-- ═══ STORY ═══ -->
+<section id="story" class="section">
+  <div class="wrap">
+    <div class="eyebrow rv">The Story</div>
+    <div class="story-layout">
+      <div class="rv">
+        <p class="s-big">I started in marketing.<br><em>Curiosity made me a strategist.</em></p>
+        <div class="s-accent-bar"></div>
+        <div class="s-body">
+          <p>My career began in marketing at a B2B technology company. Within six months of joining, my manager departed — and I found myself solely responsible for the organisation's entire content and marketing operation.</p>
+          <p>That experience taught me that <strong>content without strategy is decoration.</strong> Every piece of content I published needed to answer a question: who is this for, what does it need to do, and how will we know it worked?</p>
+          <p>I built SEO strategies from research, not assumption. I studied what the data said about audience behaviour and changed course when it told me to. I grew social communities, produced weekly reports for leadership, and learned how to translate creative decisions into business outcomes.</p>
+          <p>I then <strong>deliberately went deeper into data analysis</strong> — building Python projects, SQL pipelines, and Power BI dashboards — not to become a data engineer, but to ensure that my creative instincts were always grounded in evidence. A strategist who can read data is significantly more effective than one who cannot.</p>
+        </div>
+      </div>
+      <div class="rv d2">
+        <ul class="tl">
+          <li class="tl-item">
+            <div class="tl-yr">2022</div>
+            <div>
+              <div class="tl-title">B.E. Computer Science Engineering — 8.15 CGPA</div>
+              <div class="tl-desc">Saveetha Engineering College, Chennai. A technical foundation that gave me the vocabulary to go deeper into data and systems thinking — skills that directly inform my strategic work today.</div>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-yr">Jul 2023</div>
+            <div>
+              <div class="tl-title">Marketing Intern — StrongBox IT</div>
+              <div class="tl-desc">Analysed GA4 traffic and audience data to diagnose declining performance. Presented corrective recommendations directly to the COO within six months of starting my career.</div>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-yr">Jan 2024</div>
+            <div>
+              <div class="tl-title">Digital Marketing Executive — StrongBox IT</div>
+              <div class="tl-desc">Sole ownership of the full content and marketing function. Led a team of three. Delivered 40% traffic growth, 25% lead uplift, and 5,000 social followers in 12 months through research-led strategy.</div>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-yr">2025</div>
+            <div>
+              <div class="tl-title">Data Analytics Upskilling</div>
+              <div class="tl-desc">Completed formal training in Python, SQL, and Power BI. Built five data analysis projects on real-world datasets — deepening the analytical foundation behind every strategic decision.</div>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-yr">Now</div>
+            <div>
+              <div class="tl-title">Marketing Analyst — Freelance</div>
+              <div class="tl-desc">Two independent clients. Data-led content strategy. 15× Instagram audience growth. KPI dashboards. SEO audits. End-to-end ownership from research to execution to reporting.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects" class="section">
+  <div class="wrap">
+    <div class="proj-intro">
+      <div>
+        <div class="eyebrow rv">Projects & Case Studies</div>
+        <h2 class="section-h rv" style="margin-bottom:0;">Problems I got<br><em>curious about.</em></h2>
+      </div>
+      <p class="rv">A content strategist who understands data is a fundamentally different proposition. These projects demonstrate that I do not simply execute creative briefs — I investigate, analyse, and let evidence shape strategy. Each one began with a genuine question.</p>
+    </div>
+
+    <div class="proj-grid">
+
+      <!-- 1 -->
+      <a href="https://github.com/kanyavasudev/EU-Loneliness-Analysis" target="_blank" class="pc rv">
+        <img src="images/loneliness-analysis.png" alt="Loneliness Analysis" class="pc-img" onerror="this.style.display='none'"/>
+        <div class="pc-body">
+          <div class="pc-type hy">Consumer Behaviour Research</div>
+          <h3>EU Loneliness Pattern Analysis</h3>
+          <p class="pc-q">"Who feels alone — and what does the data actually tell us about why?"</p>
+          <p class="pc-desc">Analysed 25,000+ survey records to surface behavioural and demographic patterns in loneliness. Findings delivered via interactive Power BI dashboard. Directly applicable to audience segmentation and empathetic content strategy.</p>
+          <div class="pc-pills"><span class="pcp">Python</span><span class="pcp">Pandas</span><span class="pcp">Power BI</span><span class="pcp">EDA</span><span class="pcp">Consumer Research</span></div>
+          <div class="pc-foot"><a href="https://github.com/kanyavasudev/EU-Loneliness-Analysis" target="_blank" class="pc-lnk">View on GitHub</a><span class="pc-arr">↗</span></div>
+        </div>
+      </a>
+
+      <!-- 2 -->
+      <a href="https://github.com/kanyavasudev/cmrl-analysis" target="_blank" class="pc rv d1">
+        <img src="images/cmrl-analysis.png" alt="Chennai Metro" class="pc-img" onerror="this.style.display='none'"/>
+        <div class="pc-body">
+          <div class="pc-type da">Behavioural & Market Research</div>
+          <h3>Chennai Metro Ridership Analysis</h3>
+          <p class="pc-q">"Can data reveal the exact moment a city changed its behaviour?"</p>
+          <p class="pc-desc">Analysed three years of government ridership data. Identified a policy-driven behavioural shift — smart card adoption grew 17% in a single month. Proof that the right data surfacing can change how a strategy is built.</p>
+          <div class="pc-pills"><span class="pcp">Python</span><span class="pcp">MySQL</span><span class="pcp">Power BI</span><span class="pcp">Market Research</span></div>
+          <div class="pc-foot"><a href="https://github.com/kanyavasudev/cmrl-analysis" target="_blank" class="pc-lnk">View on GitHub</a><span class="pc-arr">↗</span></div>
+        </div>
+      </a>
+
+      <!-- 3 -->
+      <a href="https://github.com/kanyavasudev/Ride-Booking-Analysis-Python-EDA" target="_blank" class="pc rv d2">
+        <img src="images/uber-rides-analysis.png" alt="Ride Booking" class="pc-img" onerror="this.style.display='none'"/>
+        <div class="pc-body">
+          <div class="pc-type da">Operational Analytics</div>
+          <h3>Ride Booking Demand Analysis</h3>
+          <p class="pc-q">"What patterns in 50,000 bookings are driving the cancellation problem?"</p>
+          <p class="pc-desc">Explored 50,000+ records to uncover peak demand cycles and cancellation drivers. Structured findings into strategic recommendations — the same process applied to content: find the pattern, change the approach.</p>
+          <div class="pc-pills"><span class="pcp">Python</span><span class="pcp">Pandas</span><span class="pcp">Matplotlib</span><span class="pcp">EDA</span></div>
+          <div class="pc-foot"><a href="https://github.com/kanyavasudev/Ride-Booking-Analysis-Python-EDA" target="_blank" class="pc-lnk">View on GitHub</a><span class="pc-arr">↗</span></div>
+        </div>
+      </a>
+
+      <!-- 4 -->
+      <a href="https://github.com/kanyavasudev/sql-data-warehouse-project" target="_blank" class="pc rv">
+        <img src="images/overall_medallion_architecture.drawio.png" alt="SQL Data Warehouse" class="pc-img" onerror="this.style.display='none'"/>
+        <div class="pc-body">
+          <div class="pc-type da">Data Engineering</div>
+          <h3>End-to-End SQL Data Warehouse</h3>
+          <p class="pc-q">"How do you turn disconnected raw data into intelligence a business can act on?"</p>
+          <p class="pc-desc">Built a complete data warehouse using MySQL with Medallion Architecture (Bronze → Silver → Gold). Demonstrates the ability to structure information for strategic use — the technical equivalent of building a content architecture.</p>
+          <div class="pc-pills"><span class="pcp">MySQL</span><span class="pcp">ETL Pipeline</span><span class="pcp">Data Modelling</span><span class="pcp">Business Intelligence</span></div>
+          <div class="pc-foot"><a href="https://github.com/kanyavasudev/sql-data-warehouse-project" target="_blank" class="pc-lnk">View on GitHub</a><span class="pc-arr">↗</span></div>
+        </div>
+      </a>
+
+      <!-- 5 highlight -->
+      <div class="pc hl rv d1">
+        <div class="pc-nimg gold-bg">📈</div>
+        <div class="pc-body">
+          <div class="pc-type cs">Content Strategy in Practice</div>
+          <h3>Instagram Growth 15× — Freelance</h3>
+          <p class="pc-q">"How do you build a real audience with zero paid spend and pure strategy?"</p>
+          <p class="pc-desc">Diagnosed a client's stagnant social presence through performance data. Identified high-engagement content patterns, built a data-led calendar strategy, and grew the audience from 100 to 1,500+ followers organically in three months.</p>
+          <div class="pc-pills"><span class="pcp">GA4</span><span class="pcp">Content Strategy</span><span class="pcp">KPI Dashboards</span><span class="pcp">Organic Growth</span></div>
+          <div class="pc-foot"><span class="pc-lnk">Freelance Client Work</span><span class="pc-arr">↗</span></div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="pc rv d2">
+        <img src="images/library-management.png" alt="Library Management" class="pc-img" onerror="this.style.display='none'"/>
+        <div class="pc-body">
+          <div class="pc-type da">Systems Design</div>
+          <h3>Library Management System</h3>
+          <p class="pc-q">"Can a complete, functional system be built and deployed end-to-end?"</p>
+          <p class="pc-desc">Built a full-stack library management application with real-time CRUD operations using Python and MySQL. Deployed publicly on Streamlit. Demonstrates taking a problem from requirements all the way through to a live, working solution.</p>
+          <div class="pc-pills"><span class="pcp">Python</span><span class="pcp">MySQL</span><span class="pcp">Streamlit</span><span class="pcp">Full-Stack</span></div>
+          <div class="pc-foot">
+            <div style="display:flex;gap:20px;">
+              <a href="https://librarymanagement-kanya.streamlit.app/" target="_blank" class="pc-lnk">Live App ↗</a>
+              <a href="https://github.com/kanyavasudev/Library_Management_System" target="_blank" class="pc-lnk">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="work" class="section">
+  <div class="wrap">
+    <div class="eyebrow rv">Professional Experience</div>
+    <h2 class="section-h rv">Where I've done <em>real work.</em></h2>
+    <div class="work-layout">
+      <div class="w-side">
+        <div class="w-side-lbl">Jump to</div>
+        <div class="w-nav-item on" data-id="e1">Freelance · 2025–Now</div>
+        <div class="w-nav-item" data-id="e2">StrongBox IT · 2024–25</div>
+        <div class="w-nav-item" data-id="e3">StrongBox IT · 2023</div>
+        <div class="w-nav-item" data-id="e4">Education</div>
+      </div>
+      <div>
+
+        <div class="w-entry rv" id="e1">
+          <div class="w-hd">
+            <div>
+              <span class="w-co">Freelance — Self-Employed</span>
+              <div class="w-title">Marketing Analyst & Content Strategist</div>
+              <div class="w-sub">Data-led content strategy and performance analysis for two independent clients</div>
+            </div>
+            <div class="w-date">May 2025 — Present</div>
+          </div>
+          <ul class="w-list">
+            <li>Diagnosed a client's stagnant social presence through content performance analysis — developed and executed a data-led strategy that grew their Instagram audience from <strong>100 to 1,500+ followers in under three months</strong>, entirely organically.</li>
+            <li>Designed and maintained <strong>KPI dashboards tracking engagement, reach, and follower growth</strong> — translated weekly performance data into clear strategic briefings for non-technical business owners.</li>
+            <li>Conducted <strong>SEO audits and content gap analyses</strong> — surfaced structural weaknesses and prioritised improvements by estimated business impact.</li>
+            <li>Managed end-to-end content strategy across Instagram, LinkedIn, and YouTube — from audience research and content brief through to publishing, reporting, and strategic iteration.</li>
+          </ul>
+          <div class="w-tags"><span class="wt">Content Strategy</span><span class="wt">KPI Dashboards</span><span class="wt">SEO Audit</span><span class="wt">Audience Growth</span><span class="wt">Performance Analysis</span></div>
+        </div>
+
+        <div class="w-entry rv" id="e2">
+          <div class="w-hd">
+            <div>
+              <span class="w-co">StrongBox IT, Chennai</span>
+              <div class="w-title">Digital Marketing Executive</div>
+              <div class="w-sub">Sole ownership of the full content and marketing function — team of 3, reporting to CEO</div>
+            </div>
+            <div class="w-date">Jan 2024 — Mar 2025</div>
+          </div>
+          <ul class="w-list">
+            <li>Developed and executed a research-led SEO content strategy — competitor benchmarking, content gap analysis, and systematic on-page optimisation — delivering <strong>40% organic traffic growth.</strong></li>
+            <li>Identified an underserved geographic keyword segment through traffic analysis, built targeted landing pages in WordPress and Elementor, contributing to a <strong>25% uplift in inbound leads.</strong></li>
+            <li>Analysed LinkedIn content performance data and discovered that newsletter-format posts generated <strong>5× higher impressions</strong> than standard updates — pivoted content strategy accordingly, driving sustained audience growth.</li>
+            <li>Built GA4 dashboards tracking <strong>15+ KPIs daily</strong> — presented weekly performance reports with strategic recommendations directly to CEO and senior leadership.</li>
+            <li>Led a team of three (content writer, graphic designer, junior marketer) for nine months following a senior departure — maintained all content schedules and performance targets without interruption.</li>
+            <li>Grew company social media presence to <strong>5,000 followers</strong> across Instagram, LinkedIn, and Facebook in 12 months through structured content calendar management.</li>
+          </ul>
+          <div class="w-tags"><span class="wt">Content Strategy</span><span class="wt">SEO</span><span class="wt">GA4</span><span class="wt">Team Leadership</span><span class="wt">WordPress</span><span class="wt">Executive Reporting</span></div>
+        </div>
+
+        <div class="w-entry rv" id="e3">
+          <div class="w-hd">
+            <div>
+              <span class="w-co">StrongBox IT, Chennai</span>
+              <div class="w-title">Marketing Intern</div>
+              <div class="w-sub">Analytics, content support, and cross-functional coordination</div>
+            </div>
+            <div class="w-date">Jul 2023 — Dec 2023</div>
+          </div>
+          <ul class="w-list">
+            <li>Diagnosed declining search rankings and social reach through GA4 data analysis — structured corrective recommendations and <strong>presented findings directly to the COO</strong> within six months of beginning my career.</li>
+            <li>Acted as a coordination layer across technical, sales, and marketing teams — translating business requirements into structured reporting frameworks and content strategies.</li>
+            <li>Built foundational understanding of how content decisions connect to commercial outcomes — the principle that continues to guide everything I produce.</li>
+          </ul>
+          <div class="w-tags"><span class="wt">GA4</span><span class="wt">Performance Reporting</span><span class="wt">Stakeholder Communication</span><span class="wt">Content Support</span></div>
+        </div>
+
+        <div class="w-entry rv" id="e4">
+          <div class="w-hd">
+            <div>
+              <span class="w-co" style="background:var(--gold-lt);color:var(--gold);">Education</span>
+              <div class="w-title">B.E. Computer Science Engineering</div>
+              <div class="w-sub">Saveetha Engineering College, Chennai · 2018 – 2022</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:var(--plum);line-height:1;">8.15</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:4px;">CGPA / 10</div>
+            </div>
+          </div>
+          <p style="font-size:15px;line-height:1.82;color:var(--muted);margin-top:8px;">A CS background that gave me the technical vocabulary to work with data meaningfully — databases, systems thinking, structured problem solving. The foundation that makes crossing between creative strategy and analytical work feel natural.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills" class="section">
+  <div class="wrap">
+    <div class="eyebrow rv">Skills & Capabilities</div>
+    <h2 class="section-h rv">The <em>Toolkit</em></h2>
+  </div>
+  <div class="wrap">
+    <div class="skills-wrap rv">
+      <div class="sk dark">
+        <div class="sk-eye">Creative & Content</div>
+        <h3>The Creative Side</h3>
+        <div class="sk-group">
+          <div class="sk-gl">Strategy & Content</div>
+          <div class="sk-pills">
+            <span class="skp">Content Strategy</span>
+            <span class="skp">Brand Voice Development</span>
+            <span class="skp">Content Calendars</span>
+            <span class="skp">SEO Copywriting</span>
+            <span class="skp">Editorial Direction</span>
+            <span class="skp">Storytelling</span>
+          </div>
+        </div>
+        <div class="sk-group">
+          <div class="sk-gl">Channels & Platforms</div>
+          <div class="sk-pills">
+            <span class="skp">Instagram</span>
+            <span class="skp">LinkedIn</span>
+            <span class="skp">YouTube</span>
+            <span class="skp">WordPress · Elementor</span>
+            <span class="skp">Meta Ads Manager</span>
+            <span class="skp">Canva</span>
+          </div>
+        </div>
+        <div class="sk-group">
+          <div class="sk-gl">Research & Analysis</div>
+          <div class="sk-pills">
+            <span class="skp">Keyword Research</span>
+            <span class="skp">Competitive Analysis</span>
+            <span class="skp">Content Gap Analysis</span>
+            <span class="skp">Audience Segmentation</span>
+          </div>
+        </div>
+        <ul class="certs">
+          <li class="cert"><span class="cert-ico">✓</span><div><div class="cert-nm">Data Analytics Simulation — Deloitte Australia (Forage)</div><div class="cert-dt">March 2026</div></div></li>
+          <li class="cert"><span class="cert-ico">✓</span><div><div class="cert-nm">Data Analyst Certification — ACTE Technologies</div><div class="cert-dt">February 2026</div></div></li>
+          <li class="cert"><span class="cert-ico">✓</span><div><div class="cert-nm">Fundamentals of Digital Marketing — Google</div><div class="cert-dt">2023</div></div></li>
+        </ul>
+      </div>
+      <div class="sk light">
+        <div class="sk-eye">Analytics & Reporting</div>
+        <h3>The Analytical Side</h3>
+        <div class="sk-group">
+          <div class="sk-gl">Data & Analytics Tools</div>
+          <div class="sk-pills">
+            <span class="skp">GA4</span>
+            <span class="skp">Power BI</span>
+            <span class="skp">Google Search Console</span>
+            <span class="skp">Excel (Advanced)</span>
+            <span class="skp">Python (Pandas)</span>
+            <span class="skp">SQL · MySQL</span>
+          </div>
+        </div>
+        <div class="sk-group">
+          <div class="sk-gl">Analysis Methods</div>
+          <div class="sk-pills">
+            <span class="skp">KPI Dashboard Design</span>
+            <span class="skp">Funnel Analysis</span>
+            <span class="skp">Exploratory Data Analysis</span>
+            <span class="skp">Performance Reporting</span>
+            <span class="skp">Market Research</span>
+          </div>
+        </div>
+        <div class="sk-group" style="margin-bottom:0;">
+          <div class="sk-gl">What Makes the Difference</div>
+          <ul class="soft">
+            <li>Turning data findings into creative strategy decisions</li>
+            <li>Building brand voices that are consistent and human</li>
+            <li>Presenting complex findings to non-technical stakeholders</li>
+            <li>Owning a content brief from research through to reporting</li>
+            <li>Asking whether a strategy is working — and changing it if not</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WRITING ═══ -->
+<section id="writing" class="section">
+  <div class="wrap">
+    <div class="writing-hero">
+      <div>
+        <div class="eyebrow rv">Writing</div>
+        <h2 class="section-h rv" style="margin-bottom:0;">Thoughts I've <em>put into words.</em></h2>
+      </div>
+      <p class="rv">Writing is not a separate interest from my strategic work — it is the clearest demonstration of it. How an idea is framed, what it leaves unsaid, and whether it makes someone feel something are all strategic choices. These pieces are evidence of that thinking.</p>
+    </div>
+    <div class="wr-list">
+      <a href="https://medium.com/@lemonteathoughts" target="_blank" class="wr rv">
+        <div>
+          <div class="wr-plat">Medium · Reflection</div>
+          <div class="wr-t">We Are Irreplaceable. But We Are Also Exhausted.</div>
+        </div>
+        <span class="wr-arr">↗</span>
+      </a>
+      <a href="https://medium.com/@lemonteathoughts" target="_blank" class="wr rv">
+        <div>
+          <div class="wr-plat">Medium · Personal Essay</div>
+          <div class="wr-t">We Are All Trying Here</div>
+        </div>
+        <span class="wr-arr">↗</span>
+      </a>
+      <a href="https://medium.com/@lemonteathoughts" target="_blank" class="wr rv">
+        <div>
+          <div class="wr-plat">Medium · Film Review</div>
+          <div class="wr-t">Do Deewane Sheher Mein — A Film Review</div>
+        </div>
+        <span class="wr-arr">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BEYOND ═══ -->
+<section id="beyond" class="section">
+  <div class="wrap">
+    <div class="eyebrow rv">Beyond the Work</div>
+    <h2 class="section-h rv">What shapes how <em>I think.</em></h2>
+    <div class="beyond-grid rv">
+      <div class="bc">
+        <div class="bc-icon">📚</div>
+        <h3>What I'm Reading</h3>
+        <ul class="bc-list">
+          <li>Thinking, Fast and Slow — Daniel Kahneman</li>
+          <li>How to Win Friends and Influence People</li>
+          <li>The Subtle Art of Not Giving a F*ck</li>
+          <li>Surrounded by Idiots</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <div class="bc-icon">🎬</div>
+        <h3>What Feeds the Curiosity</h3>
+        <ul class="bc-list">
+          <li>K-Dramas & world cinema</li>
+          <li>Film reviews @not.justadrama</li>
+          <li>Podcasts on human behaviour and decision-making</li>
+          <li>Writing on Medium</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <div class="bc-icon">🤔</div>
+        <h3>What I Wonder About</h3>
+        <ul class="bc-list">
+          <li>Why certain narratives resonate and others are forgotten</li>
+          <li>What patterns predict loneliness early in communities</li>
+          <li>Why people abandon goals at day twelve</li>
+          <li>How emotion and logic interact in every decision</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOW ═══ -->
+<section id="now">
+  <div class="wrap">
+    <div class="now-eye">Currently Open To</div>
+    <h2 class="now-h">The right<br><em>opportunity.</em></h2>
+    <p class="now-body">
+      I am actively seeking <strong>Content Strategist, Creative Strategist, and Brand Communication</strong> roles at large organisations and GCCs in Chennai. I want to work within a team that values both creative rigour and analytical thinking — where strategy is built on evidence, not assumption.
+    </p>
+    <div class="rchips">
+      <span class="rc">Content Strategist</span>
+      <span class="rc">Creative Strategist</span>
+      <span class="rc">Brand Communication</span>
+      <span class="rc">Content Marketing Manager</span>
+      <span class="rc">Marketing Analyst</span>
+      <span class="rc">Growth Strategist</span>
+    </div>
+    <div class="now-btns">
+      <a href="mailto:kanyavasu7@gmail.com" class="btn-cream">Email Me</a>
+      <a href="https://linkedin.com/in/kanya-v" target="_blank" class="btn-outline-cream">LinkedIn</a>
+      <a href="https://medium.com/@lemonteathoughts" target="_blank" class="btn-outline-cream">Medium</a>
+    </div>
+    <p class="now-foot">Chennai, India · kanyavasu7@gmail.com</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Kanya V · Content Strategist · Creative Strategist · kanyavasu7@gmail.com</p>
+  <p>© 2026</p>
+</footer>
+
+<script>
+/* Loader */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('out'),1800);
+});
+/* Nav scroll + active */
+const nav=document.getElementById('nav');
+const nas=document.querySelectorAll('.nav-links a');
+const scs=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>30);
+  let cur='';
+  scs.forEach(s=>{if(window.scrollY>=s.offsetTop-90)cur=s.id;});
+  nas.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+/* Hamburger */
+document.getElementById('ham').addEventListener('click',()=>{
+  document.getElementById('mob').classList.toggle('open');
+});
+document.querySelectorAll('#mob a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('mob').classList.remove('open');
+}));
+/* Scroll reveal */
+const ro=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target);}});
+},{threshold:0.07,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+/* Work sidebar */
+const wes=document.querySelectorAll('.w-entry');
+const wns=document.querySelectorAll('.w-nav-item');
+const wo=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      wns.forEach(n=>n.classList.toggle('on',n.dataset.id===id));
+    }
+  });
+},{threshold:0.45});
+wes.forEach(el=>wo.observe(el));
+wns.forEach(i=>i.addEventListener('click',()=>{
+  document.getElementById(i.dataset.id)?.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+/* Ticker pause */
+const tk=document.querySelector('.t-track');
+if(tk){
+  tk.addEventListener('mouseenter',()=>tk.style.animationPlayState='paused');
+  tk.addEventListener('mouseleave',()=>tk.style.animationPlayState='running');
+}
+</script>
+</body>
+</html>
+
