@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study — StrongBox IT | Kanya V</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0f0f0f;
+      --paper: #f7f5f0;
+      --accent: #1a6b3c;
+      --accent-light: #e8f4ed;
+      --mid: #5a5a5a;
+      --rule: #d6d2c9;
+      --tag-bg: #0f0f0f;
+      --tag-fg: #f7f5f0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1.5px solid var(--ink);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .byline { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--mid); letter-spacing: 0.04em; }
+    .back-link { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--mid); }
+    .back-link:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 760px;
+      margin: 60px auto 0;
+      padding: 0 24px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 46px);
+      line-height: 1.15;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--mid);
+      max-width: 580px;
+      margin-bottom: 40px;
+    }
+
+    /* ── METRICS STRIP ── */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1.5px solid var(--ink);
+      margin-bottom: 60px;
+    }
+    .metric {
+      padding: 24px 20px;
+      border-right: 1.5px solid var(--ink);
+    }
+    .metric:last-child { border-right: none; }
+    .metric-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 38px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .metric-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--mid);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── BODY ── */
+    .body-text {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .section {
+      margin-bottom: 52px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    p {
+      color: #2a2a2a;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      padding: 18px 22px;
+      margin: 24px 0;
+      font-size: 15px;
+      color: #1a3d2b;
+    }
+    .callout strong { color: var(--accent); }
+
+    /* ── TOOL TAGS ── */
+    .tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .tool-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 5px 10px;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PROCESS ROW ── */
+    .process-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .process-card {
+      border: 1px solid var(--rule);
+      padding: 20px;
+      background: white;
+    }
+    .process-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      font-weight: 400;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+    .process-card p { font-size: 14px; color: var(--mid); margin: 0; }
+
+    /* ── RESULT ROW ── */
+    .result-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .result-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: var(--accent);
+      min-width: 80px;
+      line-height: 1;
+      padding-top: 2px;
+    }
+    .result-desc { font-size: 15px; color: #2a2a2a; }
+    .result-desc strong { color: var(--ink); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1.5px solid var(--ink);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--mid);
+    }
+    .footer-link {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    @media (max-width: 600px) {
+      header, footer { padding: 16px 20px; flex-direction: column; gap: 10px; align-items: flex-start; }
+      .metrics { grid-template-columns: 1fr; }
+      .metric { border-right: none; border-bottom: 1.5px solid var(--ink); }
+      .metric:last-child { border-bottom: none; }
+      .process-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="byline">Kanya V — Content Strategist</span>
+    <a href="https://kanyavasudev.github.io/kanya_portfolio.github.io/" class="back-link">← Portfolio</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <span class="tag">Case Study · B2B · Cybersecurity · 2024–2025</span>
+      <h1>How I built a content engine that drove <em>40% organic growth</em> for a B2B cybersecurity brand</h1>
+      <p class="hero-sub">StrongBox IT had no social presence, no SEO strategy, and no content system. I built all three from zero — and tracked every result in real time.</p>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-num">40%</div>
+          <div class="metric-label">Organic traffic growth</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">5,000</div>
+          <div class="metric-label">LinkedIn followers — from 0 in 12 months</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">500+</div>
+          <div class="metric-label">YouTube subscribers — page created from scratch</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-text">
+
+      <!-- PROBLEM -->
+      <div class="section">
+        <div class="section-label">The Problem</div>
+        <h2>A cybersecurity company with no digital presence</h2>
+        <p>When I joined StrongBox IT as a Digital Marketing Executive, the company had no LinkedIn page, no Instagram, no YouTube channel, and no structured content strategy. The website existed — but it had no SEO foundation. There was no editorial calendar, no keyword strategy, and content decisions were based on instinct rather than data.</p>
+        <p>The brief was simple but wide open: build the brand's digital presence from zero and drive meaningful traffic and leads through content.</p>
+      </div>
+
+      <!-- DIAGNOSIS -->
+      <div class="section">
+        <div class="section-label">The Diagnosis</div>
+        <h2>Finding the gaps before creating anything</h2>
+        <p>Before writing a single word, I ran a full content and SEO audit. I used SEMrush and Ubersuggest to identify keywords with high search volume and low keyword difficulty — terms like <em>penetration testing services</em> and <em>penetration testing companies in India</em> where StrongBox IT could realistically compete and rank.</p>
+        <p>I also audited every piece of content the company had previously published to identify what was redundant, what was missing, and where we were duplicating effort without adding value.</p>
+
+        <div class="callout">
+          <strong>Key insight:</strong> The existing content was scattered and undifferentiated — no clear audience targeting, no keyword alignment, and heavy repetition across service pages. The opportunity was to build a systematic, structured content engine rather than produce more of the same.
+        </div>
+
+        <div class="tools">
+          <span class="tool-tag">SEMrush</span>
+          <span class="tool-tag">Ubersuggest</span>
+          <span class="tool-tag">Google Search Console</span>
+          <span class="tool-tag">GA4</span>
+          <span class="tool-tag">Google Trends</span>
+        </div>
+      </div>
+
+      <!-- STRATEGY -->
+      <div class="section">
+        <div class="section-label">The Strategy</div>
+        <h2>A weekly content system built around data, not opinions</h2>
+        <p>I designed a repeatable weekly content system covering both website SEO and social media — two parallel tracks that reinforced each other.</p>
+
+        <div class="process-row">
+          <div class="process-card">
+            <h3>Website — SEO content cadence</h3>
+            <p>1 blog + 2 landing pages per week. Each landing page targeted a specific city or region (Oman, Dubai, India) with local keyword intent. I built the H1/H2/H3 keyword architecture for every page, briefed the content writer, reviewed all output, and published directly via WordPress and Elementor.</p>
+          </div>
+          <div class="process-card">
+            <h3>Social — editorial calendar system</h3>
+            <p>Built a weekly content calendar across LinkedIn, Instagram, Facebook, and YouTube. I selected topics using Google Trends and cybersecurity news, decided the content format for each post — carousel, video, puzzle, poll, newsletter, blog snippet — and managed the full creative pipeline from brief to publish.</p>
+          </div>
+        </div>
+
+        <p style="margin-top: 20px;">For social media, I made a deliberate strategic choice to lead with awareness and education rather than promotion. Cybersecurity audiences respond to useful, trust-building content — so the calendar prioritised insights, threat trends, and practical tips over product announcements.</p>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="section">
+        <div class="section-label">The Result</div>
+        <h2>Every channel grew. Every number was tracked.</h2>
+
+        <div class="result-row">
+          <div class="result-item">
+            <div class="result-num">40%</div>
+            <div class="result-desc"><strong>Organic traffic growth</strong> — from approximately 500 to 700+ monthly sessions through systematic keyword-led content publishing and on-page SEO optimisation across 12+ service pages.</div>
+          </div>
+          <div class="result-item">
+            <div class="result-num">25%</div>
+            <div class="result-desc"><strong>Inbound lead growth</strong> — driven by location-specific landing pages built around high-intent local search behaviour identified through GA4 and Search Console.</div>
+          </div>
+          <div class="result-item">
+            <div class="result-num">5,000</div>
+            <div class="result-desc"><strong>LinkedIn followers</strong> from zero — the company page did not exist before I joined. Built to 5,000 in 12 months through consistent educational content and data-led format decisions.</div>
+          </div>
+          <div class="result-item">
+            <div class="result-num">500+</div>
+            <div class="result-desc"><strong>YouTube subscribers</strong> from a channel I created from scratch — alongside active Instagram and Facebook presences, also built from zero.</div>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 28px;">
+          <strong>What made this work:</strong> Every decision was tracked and adjusted weekly. When LinkedIn analytics showed that educational carousel posts outperformed promotional content by 5x in impressions, I rebuilt the entire social strategy around that finding immediately — rather than waiting for a monthly review.
+        </div>
+      </div>
+
+      <!-- TOOLS USED -->
+      <div class="section">
+        <div class="section-label">Tools Used</div>
+        <h2>Full stack</h2>
+        <div class="tools">
+          <span class="tool-tag">GA4</span>
+          <span class="tool-tag">Google Search Console</span>
+          <span class="tool-tag">SEMrush</span>
+          <span class="tool-tag">Ubersuggest</span>
+          <span class="tool-tag">Google Trends</span>
+          <span class="tool-tag">WordPress</span>
+          <span class="tool-tag">Elementor</span>
+          <span class="tool-tag">Canva</span>
+          <span class="tool-tag">LinkedIn Analytics</span>
+          <span class="tool-tag">Meta Business Suite</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <span>Kanya V · Content Strategist</span>
+    <a href="mailto:kanyavasu7@gmail.com" class="footer-link">kanyavasu7@gmail.com</a>
+  </footer>
+
+</body>
+</html>
